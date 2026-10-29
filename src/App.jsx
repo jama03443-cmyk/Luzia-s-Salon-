@@ -969,8 +969,8 @@ function WhatsAppContacts({ language }) {
   const [showButton, setShowButton] = useState(false)
   const phone = '41794545861'
   const message = language === 'FR'
-    ? 'Bonjour, je souhaite prendre rendez-vous chez Alep Salon.'
-    : 'Hallo, ich möchte einen Termin bei Alep Salon buchen.'
+    ? 'Bonjour, je souhaite prendre rendez-vous chez Luzia\'s Salon.'
+    : 'Hallo, ich möchte einen Termin bei Luzia\'s Salon buchen.'
 
   useEffect(() => {
     const hero = document.querySelector('.hero-stage')
@@ -989,7 +989,7 @@ function WhatsAppContacts({ language }) {
       href={`https://wa.me/${phone}?text=${encodeURIComponent(message)}`}
       target="_blank"
       rel="noreferrer"
-      aria-label={language === 'FR' ? 'Contacter Alep Salon sur WhatsApp' : 'Alep Salon auf WhatsApp kontaktieren'}
+      aria-label={language === 'FR' ? 'Contacter Luzia\'s Salon sur WhatsApp' : 'Luzia\'s Salon auf WhatsApp kontaktieren'}
       className="whatsapp-floating-button group fixed right-4 top-1/2 z-[70] flex -translate-y-1/2 flex-col items-center text-white no-underline sm:right-6"
     >
       <span className="flex h-20 w-20 items-center justify-center rounded-full drop-shadow-[0_6px_12px_rgba(0,0,0,0.35)] transition-transform group-hover:scale-110">

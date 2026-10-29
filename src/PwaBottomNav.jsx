@@ -12,8 +12,8 @@ export default function PwaBottomNav({ language = 'FR', onReserve }) {
   ))
   const isGerman = language === 'DE'
   const whatsappMessage = isGerman
-    ? 'Hallo, ich möchte einen Termin bei Alep Salon buchen.'
-    : 'Bonjour, je souhaite prendre rendez-vous chez Alep Salon.'
+    ? 'Hallo, ich möchte einen Termin bei Luzia\'s Salon buchen.'
+    : 'Bonjour, je souhaite prendre rendez-vous chez Luzia\'s Salon.'
   const whatsappUrl = `https://wa.me/41794545861?text=${encodeURIComponent(whatsappMessage)}`
 
   useEffect(() => {
