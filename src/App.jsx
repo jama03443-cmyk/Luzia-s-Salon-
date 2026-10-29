@@ -967,7 +967,7 @@ function PublicSite() {
 
 function WhatsAppContacts({ language }) {
   const [showButton, setShowButton] = useState(false)
-  const phone = '41766124333'
+  const phone = '41794545861'
   const message = language === 'FR'
     ? 'Bonjour, je souhaite prendre rendez-vous chez Alep Salon.'
     : 'Hallo, ich möchte einen Termin bei Alep Salon buchen.'

@@ -14,7 +14,7 @@ export default function PwaBottomNav({ language = 'FR', onReserve }) {
   const whatsappMessage = isGerman
     ? 'Hallo, ich möchte einen Termin bei Alep Salon buchen.'
     : 'Bonjour, je souhaite prendre rendez-vous chez Alep Salon.'
-  const whatsappUrl = `https://wa.me/41766124333?text=${encodeURIComponent(whatsappMessage)}`
+  const whatsappUrl = `https://wa.me/41794545861?text=${encodeURIComponent(whatsappMessage)}`
 
   useEffect(() => {
     const standaloneQuery = window.matchMedia('(display-mode: standalone)')
@@ -48,7 +48,7 @@ export default function PwaBottomNav({ language = 'FR', onReserve }) {
     {onReserve
       ? <button type="button" onClick={onReserve} className="pwa-bottom-nav__reserve"><CalendarDays size={17} /><span>{isGerman ? 'Schnitt buchen' : 'Réserver ma coupe'}</span></button>
       : <Link to="/?openBooking=1" className="pwa-bottom-nav__reserve"><CalendarDays size={17} /><span>{isGerman ? 'Schnitt buchen' : 'Réserver ma coupe'}</span></Link>}
-    <a href={whatsappUrl} target="_blank" rel="noreferrer" className="pwa-bottom-nav__item pwa-bottom-nav__item--whatsapp" aria-label="WhatsApp Alep Salon">
+    <a href={whatsappUrl} target="_blank" rel="noreferrer" className="pwa-bottom-nav__item pwa-bottom-nav__item--whatsapp" aria-label="WhatsApp Luzia’s Salon">
       <img src="/whatsapp-icon-transparent.png" alt="" />
     </a>
   </nav>
