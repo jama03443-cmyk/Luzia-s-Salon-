@@ -16,7 +16,7 @@ Renseignez `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` dans `.env.local`. La
 
 Le fichier `vercel.json` configure la compilation Vite, le dossier publié et les routes de l’application. Lors de l’import dans Vercel :
 
-1. Importez le dépôt Git qui contient ce dossier de projet. Choisissez comme **Root Directory** le dossier où se trouvent `package.json` et `vercel.json`.
+1. Importez le dépôt GitHub `jama03443-cmyk/Luzia-s-Salon-`. Choisissez la racine du dépôt comme **Root Directory** : `package.json` et `vercel.json` s’y trouvent.
 2. Dans **Environment Variables**, ajoutez `VITE_SUPABASE_URL` et `VITE_SUPABASE_ANON_KEY` pour **Production**, **Preview** et **Development**.
 3. Laissez Vercel utiliser `npm run build` et le dossier de sortie `dist`, puis lancez le déploiement.
 
@@ -56,6 +56,7 @@ where id = '<auth-user-uuid>';
 ## Routes
 
 - `/` : site public et réservations.
+- `/admin-pwa` : entrée à installer pour ajouter l’application admin séparément de la PWA client.
 - `/admin-portal` : connexion admin.
 - `/admin-dashboard` : tableau de bord réservé aux admins.
 - `/fidelite` : connexion Google et carte de fidélité.

@@ -1,8 +1,8 @@
 ﻿{
   "id": "/",
-  "name": "Alep Salon Suisse",
-  "short_name": "Alep Salon",
-  "description": "Réservez votre coupe chez Alep Salon à Bienne.",
+  "name": "Luzia's Salon — Suisse",
+  "short_name": "Luzia's Salon",
+  "description": "Réservez votre coupe chez Luzia's Salon à Bienne.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

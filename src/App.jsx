@@ -1289,7 +1289,7 @@ function AdminPwaInstallPopup() {
         ? 'Sur iPhone ou iPad : ouvrez cette page dans Safari, touchez Partager, puis « Sur l’écran d’accueil ».'
         : isAndroid
           ? 'Sur Android : ouvrez cette page dans Chrome, touchez ⋮, puis « Installer l’application » ou « Ajouter à l’écran d’accueil ».'
-          : 'Dans Chrome ou Edge, ouvrez le menu ⋮ puis choisissez « Installer Alep Admin ».')
+          : 'Dans Chrome ou Edge, ouvrez le menu ⋮ puis choisissez « Installer Luzia Admin ».')
       return
     }
 
@@ -1308,18 +1308,18 @@ function AdminPwaInstallPopup() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 top-3 z-[120] flex justify-center px-3 sm:top-5 sm:px-5">
-      <section className="pointer-events-auto relative w-full max-w-lg rounded-xl border border-amber-300/50 bg-zinc-950/95 p-4 pr-12 text-white shadow-[0_12px_48px_rgba(0,0,0,0.42)] backdrop-blur-md" role="dialog" aria-modal="false" aria-labelledby="admin-install-title">
+      <section className="pointer-events-auto relative w-full max-w-lg rounded-xl border border-white/30 bg-zinc-950/95 p-4 pr-12 text-white shadow-[0_12px_48px_rgba(0,0,0,0.42)] backdrop-blur-md" role="dialog" aria-modal="false" aria-labelledby="admin-install-title">
         <button type="button" onClick={() => setVisible(false)} aria-label="Fermer" className="absolute right-2 top-2 rounded-full p-2 text-zinc-400 transition hover:bg-white/10 hover:text-white"><X size={16} /></button>
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-amber-300/50 bg-amber-300/10 text-amber-200"><Download size={17} /></div>
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-black"><Download size={17} /></div>
           <div className="min-w-0 flex-1">
-            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-amber-200">Alep Salon · Admin</p>
-            <h2 id="admin-install-title" className="mt-0.5 font-display text-base font-bold uppercase tracking-tight">Installer Alep Admin</h2>
-            <p className="mt-1 text-xs leading-5 text-zinc-300">Accédez à la connexion admin depuis l’écran d’accueil de ce téléphone.</p>
+            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-white/70">Luzia's Salon · Admin</p>
+            <h2 id="admin-install-title" className="mt-0.5 font-display text-base font-bold uppercase tracking-tight">Installer Luzia Admin</h2>
+            <p className="mt-1 text-xs leading-5 text-zinc-300">Ajoutez l’administration comme application distincte sur votre téléphone.</p>
           </div>
         </div>
         <div className="mt-3 pl-12">
-          <button type="button" className="button-primary min-h-9 w-full justify-center px-3 py-2 text-xs" onClick={() => void handleInstall()}><Download size={17} />Installer la PWA Admin</button>
+          <button type="button" className="button-primary !border-0 !bg-white !text-black min-h-9 w-full justify-center px-3 py-2 text-xs hover:!bg-zinc-200" onClick={() => void handleInstall()}><Download size={17} />Installer Luzia Admin</button>
           {helpMessage && <p role="status" className="mt-3 text-xs leading-5 text-zinc-300">{helpMessage}</p>}
         </div>
       </section>
@@ -1347,7 +1347,7 @@ function PwaManifestSwitcher() {
     const manifest = isAdminApp
       ? '/manifest-admin.webmanifest'
       : '/manifest-alep-v2.webmanifest'
-    const title = isAdminApp ? 'Alep Admin — Administration' : 'Alep Salon — Suisse'
+    const title = isAdminApp ? "Luzia's Salon — Admin" : "Luzia's Salon — Suisse"
     document.title = title
     let appleTitle = document.querySelector('meta[name="apple-mobile-web-app-title"]')
     if (!appleTitle) {
@@ -1355,7 +1355,7 @@ function PwaManifestSwitcher() {
       appleTitle.name = 'apple-mobile-web-app-title'
       document.head.appendChild(appleTitle)
     }
-    appleTitle.content = isAdminApp ? 'Alep Admin' : 'Alep Salon'
+    appleTitle.content = isAdminApp ? 'Luzia Admin' : "Luzia's Salon"
     let link = document.querySelector('link[rel="manifest"]')
     if (!link) {
       link = document.createElement('link')
@@ -1377,7 +1377,9 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<PublicSite />} />
+          <Route path="/admin.html" element={<Navigate to="/admin-pwa" replace />} />
           <Route path="/admin-portal" element={<AdminPortal />} />
+          <Route path="/admin-pwa" element={<AdminPortal />} />
           <Route path="/admin-dashboard" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
           <Route path="/fidelite" element={<Suspense fallback={<RouteLoading />}><LoyaltyScreen /></Suspense>} />
           <Route path="*" element={<Navigate to="/" replace />} />
