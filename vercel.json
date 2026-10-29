@@ -1,0 +1,10 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/admin-portal", "destination": "/index.html" },
+    { "source": "/admin-dashboard", "destination": "/index.html" },
+    { "source": "/fidelite", "destination": "/index.html" }
+  ]
+}
