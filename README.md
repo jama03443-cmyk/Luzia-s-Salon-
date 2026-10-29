@@ -39,7 +39,8 @@ Pour une nouvelle base Supabase, exécutez chaque script une fois dans le SQL Ed
 11. `loyalty-program-settings-migration.sql`
 12. `loyalty-steps-migration.sql`
 13. `loyalty-reward-auto-reset-migration.sql`
-14. `clear-client-records-migration.sql`
+14. `loyalty-reward-points-threshold-migration.sql`
+15. `clear-client-records-migration.sql`
 
 `loyalty-first-login-fix.sql` est un script de réparation pour les anciennes bases dont la procédure de première connexion fidélité n’a pas été mise à jour. La version actuelle de cette procédure est déjà incluse dans `loyalty-migration.sql`, donc ce correctif ne sert pas lors d’une nouvelle installation.
 

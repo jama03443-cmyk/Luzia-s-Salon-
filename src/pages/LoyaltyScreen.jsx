@@ -116,7 +116,7 @@ export default function LoyaltyScreen() {
   useEffect(() => {
     if (!card || !isLoyaltyProgramLoaded || !supabase || rewardClaimInFlight.current) return undefined
     const pointsNow = Number(card.points) || 0
-    const pointsForReward = Math.max(1, (Number(loyaltyProgram.loyalty_visits_for_reward) || 10) - 1)
+    const pointsForReward = Math.max(1, Number(loyaltyProgram.loyalty_visits_for_reward) || 10)
     if (pointsNow < pointsForReward) return undefined
 
     rewardClaimInFlight.current = true
@@ -311,7 +311,7 @@ export default function LoyaltyScreen() {
 
   return <main className="pwa-loyalty-page min-h-screen bg-zinc-950 px-5 py-8 text-zinc-100 sm:px-8 lg:px-10">
     {toast && <SuccessToast title={toast.title} text={toast.text} />}
-    {showRewardCelebration && <RewardCelebration onClose={() => setShowRewardCelebration(false)} />}
+    {showRewardCelebration && <RewardCelebration pointsRequired={Number(loyaltyProgram.loyalty_visits_for_reward) || 10} onClose={() => setShowRewardCelebration(false)} />}
     <div className="mx-auto max-w-5xl">
       <header className="flex items-center justify-between pb-6">
         <div className="flex min-w-0 items-center gap-4">
@@ -363,7 +363,7 @@ function WhatsAppField({ value, onChange }) {
     <span className="mt-2 block text-[10px] leading-4 text-zinc-600">Entrez 79 123 45 67, 079 123 45 67 ou +41 79 123 45 67.</span>
   </label>
 }
-function RewardCelebration({ onClose }) {
+function RewardCelebration({ onClose, pointsRequired }) {
   const giftRef = useRef(null)
   const lidRef = useRef(null)
   const messageRef = useRef(null)
@@ -399,15 +399,15 @@ function RewardCelebration({ onClose }) {
         </div>
       </div>
       <div ref={messageRef}>
-        <h2 id="reward-celebration-title" className="font-display text-3xl font-bold uppercase leading-tight text-white">Votre coupe est gratuite !</h2>
-        <p className="mt-3 text-sm font-semibold text-orange-200">Félicitations !</p>
+        <h2 id="reward-celebration-title" className="font-display text-3xl font-bold uppercase leading-tight text-white">Félicitations !</h2>
+        <p className="mt-3 text-sm font-semibold text-orange-200">Après {pointsRequired} points, votre coupe est gratuite !</p>
         <button type="button" onClick={onClose} className="button-primary mt-6 w-full">Super, merci !</button>
       </div>
     </div>
   </div>
 }
 
-function LoyaltyCard({ card, events, currentUserId, copied, onCopy, rewardVisits }) { if (!card) return <LoadingScreen />; const qrValue = `ALEP-LOYALTY:${card.member_code}`; const pointsForReward = Math.max(1, (Number(rewardVisits) || 10) - 1); const pointsRemaining = Math.max(0, pointsForReward - Number(card.points || 0)); return <section className="mx-auto mt-12 max-w-3xl"><p className="text-center text-[10px] font-bold uppercase tracking-[0.24em] text-amber-200">Votre carte fidélité</p><h1 className="mt-4 text-center font-display text-5xl font-bold uppercase leading-none tracking-tight sm:text-6xl">Bienvenue dans le club.</h1><div className="mt-9 overflow-hidden border border-amber-200/30 bg-[radial-gradient(circle_at_90%_0%,rgba(253,230,138,0.17),transparent_35%),linear-gradient(135deg,#18181b,#09090b)] p-6 sm:p-10"><div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between"><div><div className="flex items-baseline gap-3"><span className="font-display text-8xl font-bold leading-none text-amber-200">{card.points}</span><span className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-400">points collectés</span></div><p className="mt-5 text-sm text-zinc-400">Présentez votre code QR à l’équipe pour ajouter vos points à chaque visite.</p><p className="mt-2 text-xs text-zinc-600">Membre depuis {formatMemberSince(card.downloaded_at)}</p></div><div className="shrink-0 bg-zinc-50 p-3"><QRCodeSVG value={qrValue} size={168} level="M" includeMargin /></div></div><div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><span className="break-all font-mono text-xs text-zinc-500">{card.member_code}</span><button type="button" onClick={onCopy} className="inline-flex items-center gap-2 self-start text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-300 transition hover:text-amber-200"><Copy size={14} />{copied ? 'Code copié' : 'Copier le code'}</button></div></div>{Number(card.points) > 0 && <p className="mt-4 text-center text-sm font-semibold text-amber-200">{pointsRemaining === 0 ? 'Votre coupe offerte vous attend.' : `Encore ${pointsRemaining} point${pointsRemaining === 1 ? '' : 's'} avant votre coupe offerte.`}</p>}<div className="mt-6 flex items-center justify-center gap-2 text-xs text-zinc-500"><Gift size={15} className="text-amber-200" /> Vos points sont ajoutés à votre carte numérique par l’équipe après chaque visite.</div><HistoryList events={events} currentUserId={currentUserId} /></section> }
+function LoyaltyCard({ card, events, currentUserId, copied, onCopy, rewardVisits }) { if (!card) return <LoadingScreen />; const qrValue = `ALEP-LOYALTY:${card.member_code}`; const pointsForReward = Math.max(1, Number(rewardVisits) || 10); const pointsRemaining = Math.max(0, pointsForReward - Number(card.points || 0)); return <section className="mx-auto mt-12 max-w-3xl"><p className="text-center text-[10px] font-bold uppercase tracking-[0.24em] text-amber-200">Votre carte fidélité</p><h1 className="mt-4 text-center font-display text-5xl font-bold uppercase leading-none tracking-tight sm:text-6xl">Bienvenue dans le club.</h1><div className="mt-9 overflow-hidden border border-amber-200/30 bg-[radial-gradient(circle_at_90%_0%,rgba(253,230,138,0.17),transparent_35%),linear-gradient(135deg,#18181b,#09090b)] p-6 sm:p-10"><div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between"><div><div className="flex items-baseline gap-3"><span className="font-display text-8xl font-bold leading-none text-amber-200">{card.points}</span><span className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-400">points collectés</span></div><p className="mt-5 text-sm text-zinc-400">Présentez votre code QR à l’équipe pour ajouter vos points à chaque visite.</p><p className="mt-2 text-xs text-zinc-600">Membre depuis {formatMemberSince(card.downloaded_at)}</p></div><div className="shrink-0 bg-zinc-50 p-3"><QRCodeSVG value={qrValue} size={168} level="M" includeMargin /></div></div><div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"><span className="break-all font-mono text-xs text-zinc-500">{card.member_code}</span><button type="button" onClick={onCopy} className="inline-flex items-center gap-2 self-start text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-300 transition hover:text-amber-200"><Copy size={14} />{copied ? 'Code copié' : 'Copier le code'}</button></div></div>{Number(card.points) > 0 && <p className="mt-4 text-center text-sm font-semibold text-amber-200">{pointsRemaining === 0 ? 'Votre coupe offerte vous attend.' : `Encore ${pointsRemaining} point${pointsRemaining === 1 ? '' : 's'} avant votre coupe offerte.`}</p>}<div className="mt-6 flex items-center justify-center gap-2 text-xs text-zinc-500"><Gift size={15} className="text-amber-200" /> Vos points sont ajoutés à votre carte numérique par l’équipe après chaque visite.</div><HistoryList events={events} currentUserId={currentUserId} /></section> }
 function HistoryList({ events, currentUserId }) {
   const lastRewardEventId = events.find((event) => event.point_delta < 0 && event.created_by === currentUserId)?.id
   return <section className="mt-10 border border-zinc-800 bg-zinc-900/35"><div className="flex items-center justify-between border-b border-zinc-800 px-5 py-4 sm:px-6"><h2 className="flex items-center gap-2 font-display text-2xl font-bold uppercase tracking-tight"><History size={19} className="text-amber-200" /> Historique des points</h2><span className="text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-500">{events.length} opération{events.length === 1 ? '' : 's'}</span></div>{events.length === 0 ? <p className="px-5 py-10 text-center text-sm text-zinc-500">Aucun point n’a encore été collecté. Présentez votre QR code lors de votre prochaine visite.</p> : <ul className="divide-y divide-zinc-800">{events.map((event) => <PointEvent key={event.id} event={event} isLatestReward={event.id === lastRewardEventId} currentUserId={currentUserId} />)}</ul>}</section>
@@ -424,8 +424,8 @@ function SuccessToast({ title, text }) { return <aside role="status" className="
 function InlineError({ children }) { return <p role="alert" className="border-l-2 border-amber-200 bg-amber-200/5 px-3 py-2 text-xs leading-5 text-amber-100">{children}</p> }
 function LoyaltyLoadFailure({ message, onRetry, onBack }) { return <section className="mx-auto mt-14 max-w-xl border border-zinc-800 bg-zinc-900/50 p-6 sm:p-8"><h1 className="font-display text-3xl font-bold uppercase">Carte indisponible</h1><p className="mt-3 text-sm leading-6 text-zinc-400">La connexion Google a réussi, mais Luzia’s Salon n’a pas pu charger votre carte de fidélité.</p><div className="mt-5"><InlineError>{message || 'Vérifiez votre connexion puis réessayez.'}</InlineError></div><div className="mt-6 flex flex-col gap-3 sm:flex-row"><button type="button" onClick={onRetry} className="button-primary flex-1">Réessayer</button><button type="button" onClick={onBack} className="button-ghost flex-1">Retour</button></div></section> }
 function HowItWorks({ settings, steps }) {
-  const visits = Math.max(2, Math.min(100, Number(settings.loyalty_visits_for_reward) || 10))
-  const points = visits - 1
+  const points = Math.max(1, Math.min(100, Number(settings.loyalty_visits_for_reward) || 10))
+  const visits = points + 1
   const textFor = (text = '') => text.replaceAll('{visits}', String(visits)).replaceAll('{points}', String(points)).replaceAll('{stamps}', String(points))
   const icons = { scissors: Scissors, gift: Gift, friends: UsersRound, star: Star, sparkles: Sparkles }
 

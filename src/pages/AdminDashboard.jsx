@@ -1025,7 +1025,7 @@ export default function AdminDashboard() {
     if (!supabase || !isRewardThresholdDirty || isSavingRewardThreshold) return false
     const rewardVisits = Number(loyaltyProgram.loyalty_visits_for_reward)
     if (!Number.isInteger(rewardVisits) || rewardVisits < 2 || rewardVisits > 100) {
-      setFeedback({ type: 'error', text: 'Le nombre de coupes avant la récompense doit être compris entre 2 et 100.' })
+      setFeedback({ type: 'error', text: 'Le nombre de points requis doit être compris entre 2 et 100.' })
       return false
     }
 
@@ -1046,7 +1046,7 @@ export default function AdminDashboard() {
 
       setLoyaltyProgram((current) => ({ ...current, loyalty_visits_for_reward: data.loyalty_visits_for_reward }))
       setIsRewardThresholdDirty(false)
-      setFeedback({ type: 'success', text: `Seuil fidélité enregistré : ${data.loyalty_visits_for_reward} coupes.` })
+      setFeedback({ type: 'success', text: `Seuil fidélité enregistré : ${data.loyalty_visits_for_reward} points.` })
       return true
     } catch {
       setFeedback({ type: 'error', text: 'Erreur réseau : le seuil de fidélité n’a pas pu être enregistré.' })
@@ -1092,7 +1092,7 @@ export default function AdminDashboard() {
     if (!supabase || isSavingBranding) return
     const rewardVisits = Number(loyaltyProgram.loyalty_visits_for_reward)
     if (!Number.isInteger(rewardVisits) || rewardVisits < 2 || rewardVisits > 100) {
-      setFeedback({ type: 'error', text: 'Le nombre de coupes avant la récompense doit être compris entre 2 et 100.' })
+      setFeedback({ type: 'error', text: 'Le nombre de points requis doit être compris entre 2 et 100.' })
       return
     }
     setIsSavingBranding(true)
@@ -1439,9 +1439,9 @@ export default function AdminDashboard() {
             <article className="border border-zinc-800 bg-zinc-900/35 p-6 sm:p-8 xl:col-span-2">
               <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-amber-200">Programme de fidélité</p>
               <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight">Comment ça marche</h2>
-              <p className="mt-2 text-sm leading-6 text-zinc-500">Le seuil et les textes ci-dessous seront affichés sur la page fidélité des clients. Utilisez {`{visits}`} pour afficher le nombre de coupes et {`{points}`} pour les points nécessaires avant la récompense.</p>
+              <p className="mt-2 text-sm leading-6 text-zinc-500">Le seuil est le nombre de points requis. Dans les textes, {`{points}`} affiche ce seuil et {`{visits}`} affiche le numéro de la coupe offerte.</p>
               <div className="mt-7 max-w-sm">
-                <DashboardField label="Nombre de coupes avant la récompense">
+                <DashboardField label="Points nécessaires avant la coupe offerte">
                   <input required type="number" min="2" max="100" value={loyaltyProgram.loyalty_visits_for_reward} onChange={(event) => { setLoyaltyProgram((current) => ({ ...current, loyalty_visits_for_reward: event.target.value })); setIsRewardThresholdDirty(true) }} onBlur={(event) => { if (isRewardThresholdDirty && !event.relatedTarget?.dataset.saveLoyaltyProgram) void saveRewardThreshold() }} className="dashboard-input" />
                 </DashboardField>
                 <p className="mt-2 text-xs leading-5 text-zinc-500">Le nombre est enregistré automatiquement quand vous quittez le champ.</p>

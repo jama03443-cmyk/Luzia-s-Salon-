@@ -853,7 +853,7 @@ function PublicSite() {
             </div>
             <ReviewMarquee language={language} trustQuote={t.trustQuote} trustAuthor={t.trustAuthor} />
           </div>
-          <a href="https://www.google.com/maps?cid=4337053876691540753" target="_blank" rel="noopener noreferrer" className="button-primary mt-7 w-fit" aria-label={language === 'FR' ? 'Donner un avis sur Alep Salon sur Google' : 'Alep Salon auf Google bewerten'}>
+          <a href="https://www.google.com/maps/place/Luzia%E2%80%99s+Salon/@47.1354627,7.2478184,17z/data=!3m1!4b1!4m6!3m5!1s0x478e1f0c1957553b:0x23deb108fec05d78!8m2!3d47.1354627!4d7.2478184!16s%2Fg%2F11g1y13_h6?entry=ttu&g_ep=EgoyMDI2MTAyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="button-primary mt-7 w-fit" aria-label={language === 'FR' ? 'Donner un avis sur Luzia’s Salon sur Google' : 'Luzia’s Salon auf Google bewerten'}>
             <Star size={17} fill="currentColor" />{t.giveReview}<ArrowUpRight size={16} />
           </a>
         </section>

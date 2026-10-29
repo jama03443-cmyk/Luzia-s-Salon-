@@ -17,11 +17,11 @@ begin
     raise exception 'Authentication required';
   end if;
 
-  select greatest(1, coalesce(loyalty_visits_for_reward, 10) - 1)
+  select greatest(1, coalesce(loyalty_visits_for_reward, 10))
   into required_points
   from public.site_settings
   where id = true;
-  required_points := coalesce(required_points, 9);
+  required_points := coalesce(required_points, 10);
 
   select * into current_card
   from public.loyalty_cards
