@@ -459,7 +459,7 @@ function PublicSite() {
     }
     const shouldShowInstallPopup = !isInstalled && !new URLSearchParams(window.location.search).has('phonePreview')
     const installPopupTimer = shouldShowInstallPopup
-      ? window.setTimeout(() => setInstallDialogOpen(true), 5000)
+      ? window.setTimeout(() => setInstallDialogOpen(true), 1500)
       : null
 
     window.addEventListener('alepinstallprompt', handleInstallPrompt)
@@ -1271,7 +1271,7 @@ function AdminPwaInstallPopup() {
 
     window.addEventListener('alepinstallprompt', handleInstallPrompt)
     window.addEventListener('appinstalled', handleAppInstalled)
-    const timer = window.setTimeout(() => setVisible(true), 5000)
+    const timer = window.setTimeout(() => setVisible(true), 1500)
 
     return () => {
       window.clearTimeout(timer)
