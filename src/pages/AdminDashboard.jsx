@@ -255,6 +255,13 @@ export default function AdminDashboard() {
     ? { admin: 'Administration', logout: 'Abmelden', private: 'Interne Verwaltung', dashboard: 'Dashboard', reservations: 'Buchungen', loyalty: 'Treueprogramm', availability: 'Verfügbarkeiten', management: 'Verwaltung', reservationsTitle: 'Kundenbuchungen', loyaltyTitle: 'Treuekarten', availabilityTitle: 'Verfügbarkeiten', clearReservations: 'Buchungen leeren', clearReservationsConfirm: 'Alle Buchungen löschen und reservierte Zeitfenster wieder freigeben? Treuekarten und Kundenprofile bleiben unverändert.', clearReservationsDone: 'Alle Buchungen wurden gelöscht; reservierte Zeitfenster sind wieder frei.' }
     : { admin: 'Espace administration', logout: 'Déconnexion', private: 'Gestion privée', dashboard: 'Tableau de bord', reservations: 'Réservations', loyalty: 'Fidélité', availability: 'Disponibilités', management: 'Gestion', reservationsTitle: 'Réservations clients', loyaltyTitle: 'Cartes de fidélité', availabilityTitle: 'Disponibilités', clearReservations: 'Vider les réservations', clearReservationsConfirm: 'Supprimer toutes les réservations et libérer les créneaux réservés ? Les cartes de fidélité et les profils clients resteront inchangés.', clearReservationsDone: 'Toutes les réservations ont été supprimées et les créneaux réservés ont été libérés.' }
 
+  useEffect(() => {
+    if (feedback?.type !== 'success') return undefined
+
+    const timeoutId = window.setTimeout(() => setFeedback(null), 5000)
+    return () => window.clearTimeout(timeoutId)
+  }, [feedback])
+
   const changeLanguage = (nextLanguage) => {
     setLanguage(nextLanguage)
     window.localStorage.setItem('alep-admin-language', nextLanguage)
